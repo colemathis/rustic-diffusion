@@ -17,13 +17,16 @@ impl Grid {
 
     /// Gets the value at a specified (row, col) index.
     pub fn get_value(&self, row: usize, col: usize) -> f64 {
-        self.data[(row, col)]
+        let r = row % self.rows;
+        let c = col % self.cols;
+        self.data[[r, c]]
     }
-
     /// Sets the value at a specified (row, col) index.
     pub fn set_value(&mut self, row: usize, col: usize, value: f64) {
-        self.data[(row, col)] = value;
-    }
+        let r = row % self.rows;
+        let c = col % self.cols;
+        self.data[[r, c]] = value;
+}
 
     /// Print the grid values for debugging purposes.
     pub fn print(&self) {
@@ -32,5 +35,16 @@ impl Grid {
     /// Get the max value
     pub fn get_max(&self) -> f64 {
         self.data.iter().fold(f64::NEG_INFINITY, |a, &b| a.max(b))
+    }
+
+    /// Calculates the sum of all values in the grid
+    pub fn sum(&self) -> f64 {
+        let mut total = 0.0;
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                total += self.get_value(i, j);
+            }
+        }
+        total
     }
 }
