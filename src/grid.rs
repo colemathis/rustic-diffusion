@@ -26,7 +26,13 @@ impl Grid {
         let r = row % self.rows;
         let c = col % self.cols;
         self.data[[r, c]] = value;
-}
+    }
+    /// Change the value at a specified (row, col) index.
+    pub fn change_value(&mut self, row: usize, col: usize, delta: f64) {
+        let r = row % self.rows;
+        let c = col % self.cols;
+        self.data[[r, c]] += delta;
+    }
 
     /// Print the grid values for debugging purposes.
     pub fn print(&self) {
